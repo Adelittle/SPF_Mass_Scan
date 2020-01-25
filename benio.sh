@@ -30,7 +30,7 @@ SCAN () {
 printf "${lightgreen}############## START SCANNING ##############${white}\n"
 for kurumi in $(cat $list);
 do
-	if [[ $(curl --connect-timeout 3 --max-time 3 -d "serial=fred12&domain=${kurumi}" -H "Content-Type: application/x-www-form-urlencoded" -X POST "https://www.kitterman.com/spf/getspf2.py") =~ 'No valid SPF record found' ]]; then
+	if [[ $(curl --connect-timeout 3 -kls --max-time 3 -d "serial=fred12&domain=${kurumi}" -H "Content-Type: application/x-www-form-urlencoded" -X POST "https://www.kitterman.com/spf/getspf2.py") =~ 'No valid SPF record found' ]]; then
 		printf "${lightgreen}[+] VULN:${white} ${kurumi}\n"
 	else
 		printf "NOT VULN: ${kurumi} not vuln\n"
